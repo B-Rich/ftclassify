@@ -1,0 +1,40 @@
+<html>
+ <body>
+ 	<h2>{{ title }}</h2>
+ 	
+ 	<p>Table ID: {{ tableid }}</p>
+ 	<form name="myForm" action="/classify" method="post">
+				<select name="column">
+				  	<option value="1">Select Column</option>
+				</select></br></br>
+				<select name="classmethod">
+				  	<option value="0">Select Classification</option>
+				  	<option value="1">Equal Interval</option>
+				  	<option value="2">Natural Breaks</option>
+				  	<option value="3">Quantiles</option>
+				  	<option value="2">Standard Deviations</option>
+				</select></br></br>
+				<select name="classno">
+				  	<option value="0">Select number of classes</option>
+				  	<option value="3">3</option>
+				  	<option value="4">4</option>
+				  	<option value="5">5</option>
+				  	<option value="6">6</option>
+				</select></br>
+	</form>
+	<script type="text/javascript">
+		var columns = {{ columns }};
+					
+		for(var i = 0; i < columns.length; i++){
+			var entry = columns[i];
+			
+			var select = document.createElement("option");
+			select.setAttribute("value", entry);
+			select.text = entry;
+			
+			document.myForm.column.appendChild(select);
+			
+		}
+	</script>
+</body>
+</html>
