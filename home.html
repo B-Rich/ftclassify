@@ -26,8 +26,11 @@
     <div class="content_resize">
       <div class="mainbar">
        
-       <p>Table ID: {{ tableid }}</p>
+       <p>Table ID: </p>
        <form name="myForm" action="/classify" method="post">
+       			
+       			<textarea name="tid" rows="1" cols="60">{{ tableid }}</textarea></br>
+       			
 				<select name="column">
 				  	<option value="1">Select Column</option>
 				</select></br></br>
