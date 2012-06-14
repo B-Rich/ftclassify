@@ -57,10 +57,24 @@ class GetColumns(webapp.RequestHandler):
 		
 		path = os.path.join(os.path.dirname(__file__), 'home.html')
 		self.response.out.write(template.render(path, page_values))
+		
+class Classify(webapp.RequestHandler):
+	def post(self):
+		tableid = cgi.escape(self.request.get('tid'))
+		column = cgi.escape(self.request.get('column'))
+		classno = cgi.escape(self.request.get('classno'))
+		classmethod = cgi.escape(self.request.get('classmethod'))
+		
+		
+		
+		
+		
 
 application = webapp.WSGIApplication(
 									[('/', MainPage),
-									('/getcolumns', GetColumns)],
+									('/getcolumns', GetColumns),
+									('/classify', Classify)
+									],
 									debug=True)
 
 def main():
