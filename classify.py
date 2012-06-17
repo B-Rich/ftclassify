@@ -63,11 +63,54 @@ class Classify(webapp.RequestHandler):
 		tableid = cgi.escape(self.request.get('tid'))
 		column = cgi.escape(self.request.get('column'))
 		classno = cgi.escape(self.request.get('classno'))
+		classno_ = int(classno)
 		classmethod = cgi.escape(self.request.get('classmethod'))
 		
+		dList = []
+				
+		# retrieve row data from fusion table as json
+		url = 'http://www.google.com/fusiontables/api/'
+		query = 'query?sql=SELECT ' + column + ' FROM ' + tableid + '&jsonCallback=foo'
+		query = query.replace(' ','%20')
+		#query = unicode(query, "utf-8")
+		jsonpdata = urlfetch.fetch(url+query).content
+		jsondata = re.sub(r'^[^{]*|\)$', '', jsonpdata) 
+		data = simplejson.loads(jsondata)
+		data2 = data['table']['rows'] 
+	
+		for item in data2:
+			dList.append(item[0])
+				
+		
+		def getEqualInterval(dList, classno):
+			minValue = min(dList)
+			maxValue = max(dList)
+			
+			interval = (maxValue - minValue)/classno
+			lower = minValue
+			
+			classes = []
+		
+			for i in range(classno):
+				upper = lower + interval
+				classes.append([lower,upper])
+				lower = upper
+				
+				
+			return classes
 		
 		
+		cList = getEqualInterval(dList, classno_)
+		title = 'Fusion Tables Data Classify Wizard'
+
+		page_values = {
+					'title': title,
+					'classes': cList
+					}
 		
+		path = os.path.join(os.path.dirname(__file__), 'results.html')
+		self.response.out.write(template.render(path, page_values))
+	
 		
 
 application = webapp.WSGIApplication(
