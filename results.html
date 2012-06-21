@@ -27,13 +27,31 @@
       <div class="mainbar">
     
     <h3>Classes</h3>
-      <p> 
-       {{ classes }}
-		</p>
+      <div id="classes">
+      
+      </div>
        
        
       </div>
-      
+      <script type="text/javascript">
+		var classes = {{ classes }};
+		
+		for(var i = 0; i < classes.length - 1; i++){
+			if(i > 0){
+				var class1 = classes[i] + 1;
+			} else {
+				var class1 = classes[i] + 0;
+			}
+			
+			var class2 = classes[i+1];
+						
+			var row1 = document.createElement('p');
+			row1.textContent = class1 + '  -  ' + class2;
+						
+			document.getElementById("classes").appendChild(row1);
+			
+		}
+	</script>
       <div class="clr"><p>Previous work: </p></div>
     </div>
   </div>
