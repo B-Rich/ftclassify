@@ -29,22 +29,29 @@
        <p>Table ID: </p>
        <form name="myForm" action="/classify" method="post">
        			
-       			<textarea name="tid" rows="1" cols="60">{{ tableid }}</textarea></br>
+       			<textarea name="tid" rows="1" cols="60">{{ tableid }}</textarea></br></br>
        			
-				<select name="column">
-				  	<option value="1">Select Column</option>
+       			<p>Select Column</p>
+				<select size="6" name="column">
+				  	
 				</select></br></br>
-				<select name="classmethod">
-				  	<option value="0">Select Classification</option>
-				  	<option value="1">Equal Interval</option>
+				<p>Select Classification method</p>
+				<select size="3" name="classmethod">
+				   	<option value="1">Equal Interval</option>
 				  	<option value="2">Natural Breaks</option>
+				  	<option value="3">Quantile</option>
+				  	<option value="4">Standard Deviation</option>
 				</select></br></br>
-				<select name="classno">
-				  	<option value="0">Select number of classes</option>
-				  	<option value="3">3</option>
+				<p>Select number of classes</p>
+				<select size="4" name="classno">
+				   	<option value="3">3</option>
 				  	<option value="4">4</option>
 				  	<option value="5">5</option>
 				  	<option value="6">6</option>
+				  	<option value="7">7</option>
+				  	<option value="8">8</option>
+				  	<option value="9">9</option>
+				  	<option value="10">10</option>
 				</select></br></br>
 				<input type="submit" value="Classify" />
 	</form>
