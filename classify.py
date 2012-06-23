@@ -100,6 +100,32 @@ class Classify(webapp.RequestHandler):
 				
 			return classes
 		
+		def getQuantiles(dList, classno):
+			dList.sort()
+			
+			# class breaks
+			breaks = len(dList) / classno
+			interval = breaks
+			
+			# breaks List
+			classes = [dList[0]]
+			if len(dList) % classno == 0:
+				while breaks < len(dList):
+					classes.append(dList[breaks - 1])
+					breaks += interval
+			
+			else: 
+				while breaks < len(dList):
+					classes.append(dList[breaks - 1])
+					breaks += interval
+				classes.pop()
+				classes.append(dList[len(dList) - 1])
+			
+			
+			return classes
+
+		
+		
 		def getJenksBreaks(dataList, numClass):
 			dataList.sort()
 			mat1 = []
@@ -159,7 +185,7 @@ class Classify(webapp.RequestHandler):
 		elif classmethod_ == 2:
 			cList = getJenksBreaks(dList, classno_)
 		elif classmethod_ == 3:
-			cList = getJenksBreaks(dList, classno_)
+			cList = getQuantiles(dList, classno_)
 		else:
 			cList = getEqualInterval(dList, classno_)
 			
